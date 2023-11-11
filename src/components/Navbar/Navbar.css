@@ -1,0 +1,51 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Change the background color as needed */
+  color: white; /* Change the text color as needed */
+  padding: 10px 20px;
+}
+
+.NavButton {
+  background-color: #333; /* Change the background color as needed */
+  color: white; /* Change the text color as needed */
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  margin: 0;
+}
+
+.title {
+  /* text-align: center; */
+  color: white;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white; /* Change the link color as needed */
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+p {
+  font-size: 1.5rem; /* Change the font size as needed */
+  margin: 0;
+}
+
+button:hover {
+  background-color: #777; /* Change the button hover background color as needed */
+}
