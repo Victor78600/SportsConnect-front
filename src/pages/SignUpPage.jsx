@@ -8,7 +8,7 @@ function SignupPage() {
   const lastnameInput = useRef();
   const usernameInput = useRef();
   const passwordInput = useRef();
-  //   const pictureInput = useRef();
+  const pictureInput = useRef();
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -18,22 +18,17 @@ function SignupPage() {
     const lastname = lastnameInput.current.value;
     const username = usernameInput.current.value;
     const password = passwordInput.current.value;
-    // const picture = pictureInput.current.files[0];
+    const picture = pictureInput.current.files[0];
 
-    // const fd = new FormData();
-    // fd.append("firstname", firstname);
-    // fd.append("lastname", lastname);
-    // fd.append("username", username);
-    // fd.append("password", password);
-    // fd.append("picture", picture);
+    const fd = new FormData();
+    fd.append("firstname", firstname);
+    fd.append("lastname", lastname);
+    fd.append("username", username);
+    fd.append("password", password);
+    fd.append("picture", picture);
 
     try {
-      const response = await myApi.signup({
-        firstname,
-        lastname,
-        username,
-        password,
-      });
+      const response = await myApi.signup(fd);
       console.log("success", response);
       navigate("/login");
     } catch (error) {
@@ -77,10 +72,10 @@ function SignupPage() {
         <label htmlFor="password">Password: </label>
         <input type="password" ref={passwordInput} id="password" />
       </div>
-      {/* <div>
-				<label htmlFor="picture">Picture</label>
-				<input ref={pictureInput} type="file" name="" id="picture" />
-			</div> */}
+      <div>
+        <label htmlFor="picture">Profile Picture</label>
+        <input ref={pictureInput} type="file" name="" id="picture" />
+      </div>
       <button>Signup</button>
       <p className="error">{error}</p>
     </form>

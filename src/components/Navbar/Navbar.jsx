@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from "./../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Avatar from "../Avatar/Avatar";
 
 function Navbar() {
   const { isLoggedIn, authenticateUser, user } = useAuth();
@@ -41,6 +42,11 @@ function Navbar() {
           )}
         </ul>
       </nav>
+      {isLoggedIn && user && (
+        <>
+          <Avatar size="m" url={user.picture} />
+        </>
+      )}
       <Link to="/">
         <p className="title">{title}</p>
       </Link>

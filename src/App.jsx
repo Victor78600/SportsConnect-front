@@ -4,6 +4,9 @@ import ProfilPage from "./pages/ProfilPage";
 import HomePage from "./pages/HomePage";
 import CreateActivity from "./pages/CreateActivityPage";
 import OneActivityPage from "./pages/OneActivityPage";
+import EditProfile from "./pages/EditProfile";
+import CreateComment from "./pages/CreateComment";
+import UpdateActivity from "./pages/UpdateActivity";
 // Navigation
 import LoggedOutUser from "./navigation/LoggedOutUser";
 import LoggedInUser from "./navigation/LoggedInUser";
@@ -44,9 +47,16 @@ function App() {
             <Route element={<LoggedInUser />}>
               <Route path="/users" element={<UserLayout />} />
               <Route path="/:id" element={<ProfilPage />} />
+              <Route path="/:id/edit" element={<EditProfile />} />
               <Route path="/new-activity" element={<CreateActivity />} />
               <Route path="/activities/:id" element={<OneActivityPage />} />
+              <Route path="/activities/:id/edit" element={<UpdateActivity />} />
+              <Route
+                path="/activities/:id/comment"
+                element={<CreateComment />}
+              />
             </Route>
+
             {/* Login / Signup routes should be accessible to Logged out users */}
 
             <Route element={<LoggedOutUser />}>

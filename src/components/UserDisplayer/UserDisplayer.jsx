@@ -56,10 +56,11 @@ function UserDisplayer() {
           list="all-users"
           value={selectedUser.username}
           onChange={(e) => {
-            console.log(e.target.value);
+            console.log(e.target);
             setSelectedUser(e.target.value);
           }}
         />
+
         <datalist id="all-users">
           {allUsers.map((user) => (
             <option key={user._id} value={user.username}>
