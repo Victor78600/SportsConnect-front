@@ -33,7 +33,7 @@ function LoginPage() {
       navigate("/");
     } catch (error) {
       console.log(error.response);
-      setError(error.response.data.message);
+      setError(error.response);
       setTimeout(() => {
         setError("");
       }, 3000);
