@@ -26,10 +26,7 @@ function LoginPage() {
     const username = usernameInput.current.value;
     const password = passwordInput.current.value;
     try {
-      const response = await axios.post(
-        "http://localhost:5005/api/auth/login",
-        { username, password }
-      );
+      const response = await myApi.post("/auth/login", { username, password });
       console.log("success", response);
       localStorage.setItem("authToken", response.data.token);
       await authenticateUser();
