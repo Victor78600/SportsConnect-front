@@ -1,5 +1,5 @@
 import { useRef, useState, useContext } from "react";
-import axios from "axios";
+import myApi from "../service/service";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./../context/AuthContext";
 // import { AuthContext } from "./../context/AuthContext.jsx"
@@ -33,7 +33,7 @@ function LoginPage() {
       navigate("/");
     } catch (error) {
       console.log(error.response);
-      setError(error.response);
+      setError(error.response.data.message);
       setTimeout(() => {
         setError("");
       }, 3000);
