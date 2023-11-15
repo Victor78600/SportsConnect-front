@@ -16,7 +16,7 @@ function ActivityPage() {
     try {
       const response = await myApi.get(`/activities/${id}`);
       setActivity(response.data);
-      console.log(activity);
+      // console.log(activity);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +29,7 @@ function ActivityPage() {
     try {
       const response = await myApi.get(`/activities/${id}/comments`);
       setComments(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }

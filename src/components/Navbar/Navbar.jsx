@@ -14,7 +14,7 @@ function Navbar() {
   };
 
   const title = user ? `Hello ${user.firstname}` : "SportsConnect";
-  console.log(user);
+  // console.log(user);
 
   const handleProfileButton = () => {
     navigate(`/${user._id}`);

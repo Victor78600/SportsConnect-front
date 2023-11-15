@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
 import { Navigate, useParams } from "react-router-dom";
@@ -15,39 +15,37 @@ function UpdateProfile() {
     return <Navigate to={"/"} />;
   }
   const isMe = id === user._id;
-  //   const [formData, setFormData] = useState({
-  //     sports: "",
-  //     duration: "",
-  //     description: "",
-  //     city: "",
-  //     participants: [],
-  //   });
 
   async function handleUpdateProfile(event) {
     event.preventDefault();
     const firstname = firstnameInput.current.value;
     const lastname = lastnameInput.current.value;
-    const picture = pictureInput.current.value;
+    const picture = pictureInput.current.files[0];
     const age = ageInput.current.value;
     const city = cityInput.current.value;
-    // const participants = participantsInput.current.value;
 
-    // const fd = new FormData();
-    // fd.append("firstname", firstname);
-    // fd.append("lastname", lastname);
-    // fd.append("picture", picture);
-    // fd.append("age", age);
-    // fd.append("city", city);
+    const fd = new FormData();
+    fd.append("firstname", firstname);
+    fd.append("lastname", lastname);
+    if (picture) {
+      fd.append("picture", picture);
+    }
+    fd.append("age", age);
+    fd.append("city", city);
 
     try {
-      const res = await myApi.put(`/users`, {
-        firstname,
-        lastname,
-        picture,
-        age,
-        city,
-      });
-      console.log(res.data);
+      const res = await myApi.put(
+        `/users`,
+        fd
+        // firstname,
+        // lastname,
+        // // if(picture) {
+        // picture,
+        // // },
+        // age,
+        // city,
+      );
+      //   console.log(res.data);
       setUser(res.data);
     } catch (error) {
       console.log(error);
@@ -74,6 +72,7 @@ function UpdateProfile() {
             <input
               type="text"
               id="firstname"
+              defaultValue={user.firstname}
               ref={firstnameInput}
               name="firstname"
               required
@@ -83,6 +82,7 @@ function UpdateProfile() {
             <input
               type="text"
               id="lastname"
+              defaultValue={user.lastname}
               ref={lastnameInput}
               name="lastname"
               required
@@ -92,6 +92,7 @@ function UpdateProfile() {
             <input
               type="Number"
               id="age"
+              defaultValue={user.age}
               ref={ageInput}
               name="age"
               required
@@ -101,6 +102,7 @@ function UpdateProfile() {
             <input
               type="text"
               id="city"
+              defaultValue={user.city}
               ref={cityInput}
               name="city"
               required

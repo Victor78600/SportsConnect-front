@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ function UpdateActivityPage() {
   const participantsInput = useRef();
   const { user } = useAuth();
   const { id } = useParams();
+  const [activity, setActivity] = useState(null);
   //   const [formData, setFormData] = useState({
   //     sports: "",
   //     duration: "",
@@ -18,6 +19,23 @@ function UpdateActivityPage() {
   //     city: "",
   //     participants: [],
   //   });
+
+  async function fetchInputActivity() {
+    try {
+      const response = await myApi.get(`/activities/${id}`);
+      setActivity(response.data);
+      //   console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchInputActivity();
+  }, [id]);
+
+  if (!activity) {
+    return <p>Loading ...</p>;
+  }
 
   async function handleUpdateActivity(event) {
     event.preventDefault();
@@ -39,13 +57,20 @@ function UpdateActivityPage() {
       console.log(error);
     }
   }
+
   return (
     <div>
       <h1>Update your activity</h1>
 
       <form>
         <label htmlFor="sports">Sports:</label>
-        <select id="sports" ref={sportsInput} name="sports" required>
+        <select
+          id="sports"
+          defaultValue={activity.sports}
+          ref={sportsInput}
+          name="sports"
+          required
+        >
           <option value="" disabled>
             Select a sport
           </option>
@@ -82,6 +107,7 @@ function UpdateActivityPage() {
         <input
           type="number"
           id="duration"
+          defaultValue={activity.duration}
           ref={durationInput}
           name="duration"
           required
@@ -92,6 +118,7 @@ function UpdateActivityPage() {
           id="description"
           name="description"
           rows="4"
+          defaultValue={activity.description}
           ref={descriptionInput}
           required
         ></textarea>
@@ -100,6 +127,7 @@ function UpdateActivityPage() {
         <input
           type="text"
           id="city"
+          defaultValue={activity.city}
           ref={cityInput}
           name="city"
           required

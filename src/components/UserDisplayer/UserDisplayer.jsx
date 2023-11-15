@@ -1,13 +1,45 @@
 import { useState, useEffect, useRef } from "react";
 import myApi from "./../../service/service.js";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
+// import SelectedUserId from "./../SelectedUserId.jsx";
 
 function UserDisplayer() {
   const [allUsers, setAllUsers] = useState(null);
+  const [activities, setActivities] = useState(null);
   const [selectedUser, setSelectedUser] = useState("");
   const [error, setError] = useState("");
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const followedUser = user.follow;
+  console.log(followedUser);
+
+  // const fetchUserSelected = async () => {
+  //   try {
+  //     const response = await myApi.get(`/users/user/${selectedUser}`);
+  //     setUser(response.data);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchUserSelected();
+  // }, []);
+
+  // if (!user) {
+  //   return <p>Loading...</p>;
+  // }
+
+  useEffect(() => {
+    myApi
+      .get("/activities/friends")
+      .then((res) => setActivities(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(activities);
 
   const fetchAllUsers = async () => {
     try {
@@ -22,30 +54,28 @@ function UserDisplayer() {
     fetchAllUsers();
   }, []);
 
-  // async function handleClickSearch() {
-  //   console.log(selectedUser);
-  //   const user = allUsers.find((user) => user.username === selectedUser);
-  //   try {
-  //     const response = await myApi.post("/activities", { id: user._id });
-  //     console.log("success", response);
-  //     setError("Activity created");
-  //   } catch (error) {
-  //     setError(error.response.data.message);
-  //   }
-  // }
-
   if (!allUsers) {
     return <p>Loading...</p>;
   }
 
+  if (!activities) {
+    return <p>Loading...</p>;
+  }
+
   const handleClickSearch = () => {
-    console.log(selectedUser);
     navigate(`/${selectedUser}`);
   };
 
   const handleCreateActivity = () => {
     navigate("/new-activity");
   };
+
+  // function fetchActivity(id) {
+  //   const response = myApi.get(`/activities/${id}/user`);
+  //   setActivities(response.data);
+  //   console.log(response.data);
+  // }
+
   return (
     <div className="form">
       <div>
@@ -54,16 +84,16 @@ function UserDisplayer() {
         <input
           type="text"
           list="all-users"
-          value={selectedUser.username}
+          value={selectedUser._id}
           onChange={(e) => {
-            console.log(e.target);
+            // console.log(e.target);
             setSelectedUser(e.target.value);
           }}
         />
 
         <datalist id="all-users">
           {allUsers.map((user) => (
-            <option key={user._id} value={user.username}>
+            <option key={user._id} value={user._id}>
               {user.firstname} {user.lastname}
             </option>
           ))}
@@ -79,7 +109,31 @@ function UserDisplayer() {
         <button onClick={handleClickSearch}>Search someone</button>
       </div>
       <button onClick={handleCreateActivity}>Create activity</button>
-      <p>Last activities of your friends </p>
+      {activities.map((activity) => {
+        return (
+          <div
+            key={activity._id}
+            style={{
+              display: "flex",
+            }}
+          >
+            <p>{activity.creator.firstname}</p>
+            <p>{activity.creator.lastname}</p>
+            <p>{activity.city}</p>
+            <p>{activity.sports}</p>
+            <p>{activity.description}</p>
+            <p>{activity.duration}</p>
+            {activity.participants.map((participant) => {
+              return (
+                <>
+                  <p>{participant.firstname}</p>
+                  <p>{participant.lastname}</p>
+                </>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }

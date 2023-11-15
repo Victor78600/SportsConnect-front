@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
 
@@ -9,6 +9,7 @@ function CreateActivityPage() {
   const cityInput = useRef();
   const participantsInput = useRef();
   const { user } = useAuth();
+  const [allUsers, setAllUsers] = useState(null);
   //   const [formData, setFormData] = useState({
   //     sports: "",
   //     duration: "",
@@ -17,13 +18,30 @@ function CreateActivityPage() {
   //     participants: [],
   //   });
 
+  const fetchAllUsers = async () => {
+    try {
+      const response = await myApi.get("/users");
+      setAllUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
+  if (!allUsers) {
+    return <p>Loading...</p>;
+  }
+
   async function handleCreateActivity(event) {
     event.preventDefault();
     const sports = sportsInput.current.value;
     const duration = durationInput.current.value;
     const description = descriptionInput.current.value;
     const city = cityInput.current.value;
-    // const participants = participantsInput.current.value;
+    const participants = participantsInput.current.value;
     const creator = user._id;
     try {
       const res = await myApi.post(`/activities`, {
@@ -109,11 +127,14 @@ function CreateActivityPage() {
         <select
           id="participants"
           ref={participantsInput}
-          name="participants[]"
+          name="participants"
           multiple
         >
-          <option value="user1">User 1</option>
-          <option value="user2">User 2</option>
+          {allUsers.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.firstname} {user.lastname}
+            </option>
+          ))}
         </select>
 
         <button onClick={handleCreateActivity}>Create activity</button>

@@ -13,7 +13,7 @@ function ProfilPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const follow = user.follow.includes(id);
-  console.log(user.follow);
+  // console.log(user.follow);
 
   // const title = user._id === id ? "edit profile" : "SportsConnect";
   const imEditor = user._id === id;
