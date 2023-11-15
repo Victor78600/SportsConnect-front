@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function CreateComment() {
   const contentInput = useRef();
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   async function handleCreateComment(event) {
     event.preventDefault();
@@ -20,6 +21,7 @@ function CreateComment() {
         activity,
         creator,
       });
+      navigate(`/activities/${id}`);
       console.log(res.data);
     } catch (error) {
       console.log(error);

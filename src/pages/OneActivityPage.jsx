@@ -50,6 +50,7 @@ function ActivityPage() {
     try {
       const res = await myApi.delete("/comments/" + id);
       await fetchActivity();
+      // setComments(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -59,6 +60,7 @@ function ActivityPage() {
     try {
       const res = await myApi.delete("/activities/" + id);
       await fetchActivity();
+      navigate(`/${user._id}`);
     } catch (error) {
       console.log(error);
     }
@@ -74,14 +76,29 @@ function ActivityPage() {
 
   return (
     <div>
-      <p>Sports: {activity.sports} </p>
-      <p>City: {activity.city} </p>
-      <p>Description: {activity.description} </p>
-      <p>Duration: {activity.duration} </p>
-      {activity.creator === user._id && (
+      <div>
+        <p>
+          Creator: {activity.creator.firstname} {activity.creator.lastname}{" "}
+        </p>
+        <p>Sports: {activity.sports} </p>
+        <p>City: {activity.city} </p>
+        <p>Description: {activity.description} </p>
+        <p>Duration: {activity.duration} </p>
+        <p>Participants:</p>
+        {activity.participants.map((participant) => {
+          return (
+            <div key={participant._id}>
+              <p>
+                {participant.firstname} {participant.lastname}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      {activity.creator._id === user._id && (
         <button onClick={() => handleEditActivity(activity._id)}>Edit</button>
       )}
-      {activity.creator === user._id && (
+      {activity.creator._id === user._id && (
         <button onClick={() => handleDeleteActivity(activity._id)}>
           Delete
         </button>
@@ -94,7 +111,9 @@ function ActivityPage() {
         Comments
       </h3>
       {comments.map((comment) => {
-        const isMe = comment.creator === user._id;
+        console.log(comment.creator);
+        console.log(user._id);
+        const isMe = comment.creator._id === user._id;
         return (
           <div
             key={comment._id}
@@ -105,7 +124,9 @@ function ActivityPage() {
             }}
           >
             <p>{comment.content} </p>
-            <p>Creator: {comment.creator}</p>
+            <p>
+              Creator: {comment.creator.firstname} {comment.creator.lastname}
+            </p>
             {isMe && (
               <div onClick={() => handleDeleteComment(comment._id)}>🗑️</div>
             )}

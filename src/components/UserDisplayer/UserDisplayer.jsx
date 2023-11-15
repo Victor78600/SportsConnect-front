@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import myApi from "./../../service/service.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 // import SelectedUserId from "./../SelectedUserId.jsx";
 
@@ -12,7 +12,7 @@ function UserDisplayer() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const followedUser = user.follow;
-  console.log(followedUser);
+  // console.log(followedUser);
 
   // const fetchUserSelected = async () => {
   //   try {
@@ -39,7 +39,7 @@ function UserDisplayer() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(activities);
+  // console.log(activities);
 
   const fetchAllUsers = async () => {
     try {
@@ -94,7 +94,7 @@ function UserDisplayer() {
         <datalist id="all-users">
           {allUsers.map((user) => (
             <option key={user._id} value={user._id}>
-              {user.firstname} {user.lastname}
+              {user.firstname} {user.lastname}, {user.username}
             </option>
           ))}
         </datalist>
@@ -111,27 +111,29 @@ function UserDisplayer() {
       <button onClick={handleCreateActivity}>Create activity</button>
       {activities.map((activity) => {
         return (
-          <div
-            key={activity._id}
-            style={{
-              display: "flex",
-            }}
-          >
-            <p>{activity.creator.firstname}</p>
-            <p>{activity.creator.lastname}</p>
-            <p>{activity.city}</p>
-            <p>{activity.sports}</p>
-            <p>{activity.description}</p>
-            <p>{activity.duration}</p>
-            {activity.participants.map((participant) => {
-              return (
-                <>
-                  <p>{participant.firstname}</p>
-                  <p>{participant.lastname}</p>
-                </>
-              );
-            })}
-          </div>
+          <Link to={`/activities/${activity._id}`} key={activity._id}>
+            <div
+              key={activity._id}
+              style={{
+                display: "flex",
+              }}
+            >
+              <p>{activity.creator.firstname}</p>
+              <p>{activity.creator.lastname}</p>
+              <p>{activity.city}</p>
+              <p>{activity.sports}</p>
+              <p>{activity.description}</p>
+              <p>{activity.duration}</p>
+              {activity.participants.map((participant) => {
+                return (
+                  <div key={participant._id}>
+                    <p>{participant.firstname}</p>
+                    <p>{participant.lastname}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </Link>
         );
       })}
     </div>

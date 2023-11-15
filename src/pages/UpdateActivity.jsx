@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateActivityPage() {
   const sportsInput = useRef();
@@ -12,6 +12,8 @@ function UpdateActivityPage() {
   const { user } = useAuth();
   const { id } = useParams();
   const [activity, setActivity] = useState(null);
+  const [allUsers, setAllUsers] = useState(null);
+  const navigate = useNavigate();
   //   const [formData, setFormData] = useState({
   //     sports: "",
   //     duration: "",
@@ -19,6 +21,19 @@ function UpdateActivityPage() {
   //     city: "",
   //     participants: [],
   //   });
+
+  const fetchAllUsers = async () => {
+    try {
+      const response = await myApi.get("/users");
+      setAllUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
 
   async function fetchInputActivity() {
     try {
@@ -37,12 +52,19 @@ function UpdateActivityPage() {
     return <p>Loading ...</p>;
   }
 
+  if (!allUsers) {
+    return <p>Loading...</p>;
+  }
+
   async function handleUpdateActivity(event) {
     event.preventDefault();
     const sports = sportsInput.current.value;
     const duration = durationInput.current.value;
     const description = descriptionInput.current.value;
     const city = cityInput.current.value;
+    const participants = Array.from(
+      participantsInput.current.selectedOptions
+    ).map((option) => option.value);
     // const participants = participantsInput.current.value;
     try {
       const res = await myApi.put(`/activities/` + id, {
@@ -50,8 +72,9 @@ function UpdateActivityPage() {
         duration,
         description,
         city,
-        // participants,
+        participants,
       });
+      navigate(`/${user._id}`);
       console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -133,15 +156,21 @@ function UpdateActivityPage() {
           required
         ></input>
 
-        <label htmlFor="participants">Participants:</label>
+        <label htmlFor="participants">
+          Participants (select all participants):
+        </label>
         <select
           id="participants"
+          //   defaultValue={activity.participants}
           ref={participantsInput}
-          name="participants[]"
+          name="participants"
           multiple
         >
-          <option value="user1">User 1</option>
-          <option value="user2">User 2</option>
+          {allUsers.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.firstname} {user.lastname}
+            </option>
+          ))}
         </select>
 
         <button onClick={handleUpdateActivity}>Update activity</button>

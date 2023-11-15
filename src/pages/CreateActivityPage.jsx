@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CreateActivityPage() {
   const sportsInput = useRef();
@@ -10,6 +11,7 @@ function CreateActivityPage() {
   const participantsInput = useRef();
   const { user } = useAuth();
   const [allUsers, setAllUsers] = useState(null);
+  const navigate = useNavigate();
   //   const [formData, setFormData] = useState({
   //     sports: "",
   //     duration: "",
@@ -41,7 +43,10 @@ function CreateActivityPage() {
     const duration = durationInput.current.value;
     const description = descriptionInput.current.value;
     const city = cityInput.current.value;
-    const participants = participantsInput.current.value;
+
+    const participants = Array.from(
+      participantsInput.current.selectedOptions
+    ).map((option) => option.value);
     const creator = user._id;
     try {
       const res = await myApi.post(`/activities`, {
@@ -49,13 +54,15 @@ function CreateActivityPage() {
         duration,
         description,
         city,
-        // participants,
+        participants,
         creator,
       });
+      navigate(`/${user._id}`);
       console.log(res.data);
     } catch (error) {
       console.log(error);
     }
+    console.log(user._id);
   }
   return (
     <div>

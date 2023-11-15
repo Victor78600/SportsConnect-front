@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateProfile() {
   const firstnameInput = useRef();
@@ -10,6 +10,7 @@ function UpdateProfile() {
   const ageInput = useRef();
   const cityInput = useRef();
   const { id } = useParams();
+  const Navigate = useNavigate();
   const { user, setUser } = useAuth();
   if (!user) {
     return <Navigate to={"/"} />;
@@ -47,6 +48,7 @@ function UpdateProfile() {
       );
       //   console.log(res.data);
       setUser(res.data);
+      Navigate(`/${user._id}`);
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +59,7 @@ function UpdateProfile() {
       const res = await myApi.delete("/users/");
       localStorage.removeItem("authToken");
       setUser(null);
+      Navigate(`/login`);
     } catch (error) {
       console.log(error);
     }
