@@ -1,0 +1,72 @@
+.HomePage {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.SearchDiv {
+  text-align: center;
+}
+
+.SearchButton {
+  margin-top: 10px;
+}
+
+.DisplayActivites {
+  background-color: white;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solide black;
+  width: 75%;
+  flex-direction: column;
+  color: black;
+}
+
+.DisplayActivites:hover {
+  border-color: var(--blue);
+}
+
+.NameCreator {
+  margin-left: 10px;
+  margin-top: -5px;
+}
+
+.hearderActivity {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CreatorProfile {
+  display: flex;
+}
+
+.Duration {
+  font-size: 1.2rem;
+}
+
+.ActivityCity {
+  font-size: 0.8em;
+}
+
+.ActivityDesc {
+  margin-top: 10px;
+}
+
+.Participants {
+  margin-top: 15px;
+}
+
+#ParticipantsName {
+  font-size: 1rem;
+}
+
+#DeleteActivity {
+  margin: 0 45%;
+  font-size: 1.5rem;
+  padding: 2px;
+  background-color: white;
+}

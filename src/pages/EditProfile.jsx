@@ -59,7 +59,7 @@ function UpdateProfile() {
       const res = await myApi.delete("/users/");
       localStorage.removeItem("authToken");
       setUser(null);
-      Navigate(`/login`);
+      Navigate(`/`);
     } catch (error) {
       console.log(error);
     }
@@ -67,58 +67,71 @@ function UpdateProfile() {
   return (
     <div>
       {isMe && (
-        <div>
-          <h1>Update your profile</h1>
+        <div className="FormPages">
+          <h2>Update your profile</h2>
 
-          <form>
-            <label htmlFor="firstname">Firstname:</label>
-            <input
-              type="text"
-              id="firstname"
-              defaultValue={user.firstname}
-              ref={firstnameInput}
-              name="firstname"
-              required
-            ></input>
-
-            <label htmlFor="lastname">Lastname:</label>
-            <input
-              type="text"
-              id="lastname"
-              defaultValue={user.lastname}
-              ref={lastnameInput}
-              name="lastname"
-              required
-            ></input>
-
-            <label htmlFor="age">Age:</label>
-            <input
-              type="Number"
-              id="age"
-              defaultValue={user.age}
-              ref={ageInput}
-              name="age"
-              required
-            ></input>
-
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              id="city"
-              defaultValue={user.city}
-              ref={cityInput}
-              name="city"
-              required
-            ></input>
-
-            <label htmlFor="picture">Profile Picture</label>
-            <input ref={pictureInput} type="file" name="" id="picture" />
-
-            <button onClick={handleUpdateProfile}>Edit Profile</button>
-
-            <button onClick={() => handleDelete(user._id)}>
-              Delete Profile
-            </button>
+          <form className="Form">
+            <div className="FormElement">
+              <label htmlFor="firstname">Firstname</label>
+              <br />
+              <input
+                type="text"
+                id="firstname"
+                defaultValue={user.firstname}
+                ref={firstnameInput}
+                name="firstname"
+                required
+              ></input>
+            </div>
+            <div className="FormElement">
+              <label htmlFor="lastname">Lastname</label>
+              <br />
+              <input
+                type="text"
+                id="lastname"
+                defaultValue={user.lastname}
+                ref={lastnameInput}
+                name="lastname"
+                required
+              ></input>
+            </div>
+            <div className="FormElement">
+              <label htmlFor="age">Age</label>
+              <br />
+              <input
+                type="Number"
+                id="age"
+                defaultValue={user.age}
+                ref={ageInput}
+                name="age"
+                required
+              ></input>
+            </div>
+            <div className="FormElement">
+              <label htmlFor="city">City</label>
+              <br />
+              <input
+                type="text"
+                id="city"
+                defaultValue={user.city}
+                ref={cityInput}
+                name="city"
+                required
+              ></input>
+            </div>
+            <div className="FormElement">
+              <label htmlFor="picture">Profile Picture</label>
+              <br />
+              <input ref={pictureInput} type="file" name="" id="picture" />
+            </div>
+            <div className="FormElement">
+              <button onClick={handleUpdateProfile}>Edit Profile</button>
+            </div>
+            <div className="FormElement">
+              <button onClick={() => handleDelete(user._id)}>
+                Delete Profile
+              </button>
+            </div>
           </form>
         </div>
       )}

@@ -1,0 +1,21 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FormPages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.InputCreate {
+  width: 300px;
+  border: 2px solid black;
+}
+.FormElement {
+  margin: 5px 0;
+  text-align: center;
+}

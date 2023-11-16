@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import myApi from "./../../service/service.js";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import "./UserDisplayer.css";
+import Avatar from "../Avatar/Avatar.jsx";
 // import SelectedUserId from "./../SelectedUserId.jsx";
 
 function UserDisplayer() {
@@ -11,7 +13,7 @@ function UserDisplayer() {
   const [error, setError] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
-  const followedUser = user.follow;
+  // const followedUser = user.follow;
   // console.log(followedUser);
 
   // const fetchUserSelected = async () => {
@@ -77,8 +79,8 @@ function UserDisplayer() {
   // }
 
   return (
-    <div className="form">
-      <div>
+    <div className="HomePage">
+      <div className="SearchDiv">
         {/* <pre>{JSON.stringify(allUsers, null, 2)}</pre> */}
         <p>{error}</p>
         <input
@@ -105,33 +107,49 @@ function UserDisplayer() {
               </p>
             );
           })} */}
-
-        <button onClick={handleClickSearch}>Search someone</button>
+        <br />
+        <button className="SearchButton" onClick={handleClickSearch}>
+          Search someone
+        </button>
       </div>
-      <button onClick={handleCreateActivity}>Create activity</button>
+      <button onClick={handleCreateActivity}>Create an activity</button>
       {activities.map((activity) => {
         return (
-          <Link to={`/activities/${activity._id}`} key={activity._id}>
-            <div
-              key={activity._id}
-              style={{
-                display: "flex",
-              }}
-            >
-              <p>{activity.creator.firstname}</p>
-              <p>{activity.creator.lastname}</p>
-              <p>{activity.city}</p>
-              <p>{activity.sports}</p>
-              <p>{activity.description}</p>
-              <p>{activity.duration}</p>
-              {activity.participants.map((participant) => {
-                return (
-                  <div key={participant._id}>
-                    <p>{participant.firstname}</p>
-                    <p>{participant.lastname}</p>
+          <Link
+            className="DisplayActivites"
+            to={`/activities/${activity._id}`}
+            key={activity._id}
+          >
+            <div key={activity._id}>
+              <div className="hearderActivity">
+                <div className="CreatorProfile">
+                  <Avatar size="s" url={activity.creator.picture} />
+                  <div className="NameCreator">
+                    <p>
+                      {activity.creator.firstname} {activity.creator.lastname}
+                    </p>
+                    <p className="ActivityCity">
+                      {activity.city}, {activity.sports}
+                    </p>
                   </div>
-                );
-              })}
+                </div>
+                <div>
+                  <p className="Duration">Duration: {activity.duration}h</p>
+                </div>
+              </div>
+              <p className="ActivityDesc">{activity.description}</p>
+              {/* {activity.participants > 0 && <p>Participants:</p>} */}
+              <div className="Participants">
+                {activity.participants.map((participant) => {
+                  return (
+                    <div key={participant._id}>
+                      <p id="ParticipantsName">
+                        {participant.firstname} {participant.lastname}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </Link>
         );

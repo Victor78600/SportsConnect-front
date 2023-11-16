@@ -40,9 +40,10 @@ function LoginPage() {
     }
   }
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username: </label>
+    <form className="HomeLogin" onSubmit={handleSubmit}>
+      <div className="LoginInput">
+        <label htmlFor="username">Username </label>
+        <br />
         <input
           type="text"
           ref={usernameInput}
@@ -50,11 +51,12 @@ function LoginPage() {
           autoComplete="off"
         />
       </div>
-      <div>
-        <label htmlFor="password">Password: </label>
+      <div className="LoginInput">
+        <label htmlFor="password">Password </label>
+        <br />
         <input type="password" ref={passwordInput} id="password" />
       </div>
-      <button>Login</button>
+      <button className="LoginInput">Login</button>
       <p className="error">{error}</p>
     </form>
   );

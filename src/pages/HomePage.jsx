@@ -6,7 +6,7 @@ function HomePage() {
 
   if (!isLoggedIn) {
     return (
-      <p className="form">
+      <p className="HomeLogin">
         Please <Link to="/login">Log in</Link>
       </p>
     );

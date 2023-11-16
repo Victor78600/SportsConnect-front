@@ -1,47 +1,60 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --beige: rgb(237, 230, 227);
+  --black: rgb(54, 56, 46);
+  --red: rgb(240, 100, 73);
+  --blue: rgb(91, 195, 235);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+body {
+  margin: 0;
+  font-family: cursive, sans-serif;
+  background-color: var(--beige);
 }
 
-.form {
+.HomeLogin {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 
+/* Profil Page */
 .profil {
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 75%;
+}
+
+input,
+textarea,
+select {
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+/* Login and signup Page */
+.LoginInput {
+  margin-top: 10px;
+}
+
+button {
+  background-color: var(--blue);
+}
+
+a {
+  text-decoration: inherit;
+}
+
+/* .profil {
   text-align: center;
   margin-top: 20px;
-}
-
-/* body {
-  margin: 0;
-  display: flex;
-  justify-content: space-evenly;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 } */
 
 h1 {
@@ -56,16 +69,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--black);
+  color: var(--beige);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-color: var(--blue);
 }
 
 @media (prefers-color-scheme: light) {

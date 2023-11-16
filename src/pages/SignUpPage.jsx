@@ -40,9 +40,10 @@ function SignupPage() {
     }
   }
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="firstname">Firstname: </label>
+    <form className="HomeLogin" onSubmit={handleSubmit}>
+      <div className="LoginImput">
+        <label htmlFor="firstname">Firstname </label>
+        <br />
         <input
           type="text"
           ref={firstnameInput}
@@ -50,8 +51,9 @@ function SignupPage() {
           autoComplete="off"
         />
       </div>
-      <div>
-        <label htmlFor="lastname">Lastname: </label>
+      <div className="LoginInput">
+        <label htmlFor="lastname">Lastname </label>
+        <br />
         <input
           type="text"
           ref={lastnameInput}
@@ -59,8 +61,9 @@ function SignupPage() {
           autoComplete="off"
         />
       </div>
-      <div>
-        <label htmlFor="username">Username: </label>
+      <div className="LoginInput">
+        <label htmlFor="username">Username </label>
+        <br />
         <input
           type="text"
           ref={usernameInput}
@@ -68,15 +71,16 @@ function SignupPage() {
           autoComplete="off"
         />
       </div>
-      <div>
-        <label htmlFor="password">Password: </label>
+      <div className="LoginInput">
+        <label htmlFor="password">Password </label>
+        <br />
         <input type="password" ref={passwordInput} id="password" />
       </div>
-      <div>
+      <div className="LoginInput">
         <label htmlFor="picture">Profile Picture</label>
         <input ref={pictureInput} type="file" name="" id="picture" />
       </div>
-      <button>Signup</button>
+      <button className="LoginInput">Signup</button>
       <p className="error">{error}</p>
     </form>
   );

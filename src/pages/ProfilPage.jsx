@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import myApi from "./../service/service.js";
 import Avatar from "../components/Avatar/Avatar.jsx";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +56,7 @@ function ProfilPage() {
     try {
       const res = await myApi.delete("/activities/" + id);
       setActivities(res.data);
+      fetchActivity();
     } catch (error) {
       console.log(error);
     }
@@ -129,7 +130,7 @@ function ProfilPage() {
       )}
       {imEditor && (
         <button className="CreateActivity" onClick={handleCreateActivity}>
-          Create Activity
+          Create a new activity
         </button>
       )}
       {!imEditor && (
@@ -140,39 +141,57 @@ function ProfilPage() {
         </div>
       )}
       {activities.map((activity) => {
+        console.log(user._id);
+        console.log(activity.creator._id);
         const isMe = activity.creator._id === user._id;
         // const side = isMe ? "marginLeft" : "marginRight";
         // console.log(activity.creator);
         return (
-          <div key={activity._id}>
+          <div className="DisplayActivites" key={activity._id}>
             <Link to={`/activities/${activity._id}`}>
               {/* <div>
               <Avatar size="s" url={activity.creator.picture} />
             </div> */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p>
-                  {activity.creator.firstname} {activity.creator.lastname}
-                </p>
-                <p>{activity.city} </p>
-                <p>{activity.description} </p>
-                <p>{activity.duration} </p>
-                <p>{activity.sports} </p>
-                {activity.participants.map((participant) => {
-                  return (
-                    <div key={participant._id}>
-                      <p>{participant.firstname}</p>
-                      <p>{participant.lastname}</p>
+              <div key={activity._id}>
+                <div className="hearderActivity">
+                  <div className="CreatorProfile">
+                    <Avatar size="s" url={activity.creator.picture} />
+                    <div className="NameCreator">
+                      <p>
+                        {activity.creator.firstname} {activity.creator.lastname}
+                      </p>
+                      <p className="ActivityCity">
+                        {activity.city}, {activity.sports}
+                      </p>
                     </div>
-                  );
-                })}
+                  </div>
+                  <div>
+                    <p className="Duration">Duration: {activity.duration}h</p>
+                  </div>
+                </div>
+                <p className="ActivityDesc">{activity.description}</p>
+                {/* {activity.participants > 0 && <p>Participants:</p>} */}
+                <div className="Participants">
+                  {activity.participants.map((participant) => {
+                    return (
+                      <div key={participant._id}>
+                        <p id="ParticipantsName">
+                          {participant.firstname} {participant.lastname}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </Link>
-            {isMe && <div onClick={() => handleDelete(activity._id)}>🗑️</div>}
+            {isMe && (
+              <button
+                id="DeleteActivity"
+                onClick={() => handleDelete(activity._id)}
+              >
+                🗑️
+              </button>
+            )}
           </div>
         );
       })}

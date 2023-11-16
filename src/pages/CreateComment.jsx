@@ -28,20 +28,25 @@ function CreateComment() {
     }
   }
   return (
-    <div>
-      <h1>Add a comment</h1>
+    <div className="FormPages">
+      <h2>Add a comment</h2>
 
-      <form>
-        <label htmlFor="content">Comment:</label>
-        <textarea
-          id="content"
-          name="content"
-          rows="4"
-          ref={contentInput}
-          required
-        ></textarea>
-
-        <button onClick={handleCreateComment}>Comment</button>
+      <form className="Form">
+        <div className="FormElement">
+          <label htmlFor="content">Your comment</label>
+          <br />
+          <textarea
+            className="InputCreate"
+            id="content"
+            name="content"
+            rows="4"
+            ref={contentInput}
+            required
+          ></textarea>
+        </div>
+        <div className="FormElement">
+          <button onClick={handleCreateComment}>Comment</button>
+        </div>
       </form>
     </div>
   );

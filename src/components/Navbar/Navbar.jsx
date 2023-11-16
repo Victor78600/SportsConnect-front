@@ -34,19 +34,17 @@ function Navbar() {
             </button>
           </li>
           {isLoggedIn && user && (
-            <li>
+            <li className="MyProfile">
               <button className="NavButton" onClick={handleProfileButton}>
                 My Profile
               </button>
+              <>
+                <Avatar className="NavPicture" size="s" url={user.picture} />
+              </>
             </li>
           )}
         </ul>
       </nav>
-      {isLoggedIn && user && (
-        <>
-          <Avatar size="m" url={user.picture} />
-        </>
-      )}
       <Link to="/">
         <p className="title">{title}</p>
       </Link>
@@ -54,7 +52,9 @@ function Navbar() {
         <ul>
           {isLoggedIn ? (
             <li>
-              <button onClick={handleLogout}>Logout</button>
+              <button className="NavButton" onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           ) : (
             <>

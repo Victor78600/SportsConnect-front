@@ -1,19 +1,31 @@
+:root {
+  --beige: rgb(237, 230, 227);
+  --black: rgb(54, 56, 46);
+  --red: rgb(240, 100, 73);
+  --blue: rgb(91, 195, 235);
+}
+
 .Navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333; /* Change the background color as needed */
-  color: white; /* Change the text color as needed */
+  background-color: var(--black); /* Change the background color as needed */
+  color: var(--beige); /* Change the text color as needed */
   padding: 10px 20px;
 }
 
 .NavButton {
-  background-color: #333; /* Change the background color as needed */
+  background-color: var(--black); /* Change the background color as needed */
   color: white; /* Change the text color as needed */
-  padding: 10px 20px;
+  padding: 14px 20px;
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+}
+
+.MyProfile {
+  display: flex;
+  gap: 10px;
 }
 
 nav ul {
@@ -29,6 +41,11 @@ nav ul li {
 .title {
   /* text-align: center; */
   color: white;
+  text-decoration: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 nav ul li a {

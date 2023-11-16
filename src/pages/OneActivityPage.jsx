@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext.jsx";
 import { useParams } from "react-router-dom";
 import myApi from "./../service/service.js";
 import { useNavigate } from "react-router-dom";
+import "./OneActivityPage.css";
+import Avatar from "../components/Avatar/Avatar.jsx";
 // import Avatar from "../components/Avatar/Avatar.jsx"
 
 function ActivityPage() {
@@ -49,7 +51,8 @@ function ActivityPage() {
   const handleDeleteComment = async (id) => {
     try {
       const res = await myApi.delete("/comments/" + id);
-      await fetchActivity();
+      await fetchComments();
+
       // setComments(res.data);
     } catch (error) {
       console.log(error);
@@ -75,67 +78,91 @@ function ActivityPage() {
   };
 
   return (
-    <div>
+    <div className="OneActivityDisplay">
       <div>
-        <p>
-          Creator: {activity.creator.firstname} {activity.creator.lastname}{" "}
-        </p>
-        <p>Sports: {activity.sports} </p>
-        <p>City: {activity.city} </p>
-        <p>Description: {activity.description} </p>
-        <p>Duration: {activity.duration} </p>
-        <p>Participants:</p>
-        {activity.participants.map((participant) => {
+        <div className="Creator">
+          <p className="CreatorName">
+            Activity created by {activity.creator.firstname}{" "}
+            {activity.creator.lastname}{" "}
+          </p>
+          <div className="OneActivityAvatar">
+            <Avatar size="s" url={activity.creator.picture} />
+          </div>
+        </div>
+        <div className="Activityinfos">
+          <p>Sports: {activity.sports} </p>
+          <p>City: {activity.city} </p>
+          <p>Duration: {activity.duration}h </p>
+        </div>
+        <div className="ActivityDescription">
+          <p>Description: {activity.description} </p>
+        </div>
+        <div className="ParticipantsOneActivity">
+          <p>Participants:</p>
+          {activity.participants.map((participant) => {
+            return (
+              <div
+                className="EachParticipantsOneActivity"
+                key={participant._id}
+              >
+                <Avatar size="xs" url={participant.picture} />
+                <p id="NameParticipants">
+                  {participant.firstname} {participant.lastname}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        <h3
+          style={{
+            marginTop: "10px",
+          }}
+        >
+          Comments
+        </h3>
+        {comments.map((comment) => {
+          console.log(comment.creator);
+          console.log(user._id);
+          const isMe = comment.creator._id === user._id;
           return (
-            <div key={participant._id}>
-              <p>
-                {participant.firstname} {participant.lastname}
-              </p>
+            <div className="DisplayComment" key={comment._id}>
+              <div>
+                <div className="EachParticipantsOneActivity">
+                  <Avatar size="xs" url={comment.creator.picture} />
+                  <p id="NameParticipants">
+                    {comment.creator.firstname} {comment.creator.lastname}
+                  </p>
+                </div>
+                <p id="CommentsContent">{comment.content} </p>
+              </div>
+
+              {isMe && (
+                <button
+                  id="DeleteComment"
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  🗑️
+                </button>
+              )}
             </div>
           );
         })}
+        <button className="CreateComment" onClick={handleCreateComment}>
+          Add a comment
+        </button>
       </div>
       {activity.creator._id === user._id && (
-        <button onClick={() => handleEditActivity(activity._id)}>Edit</button>
+        <button onClick={() => handleEditActivity(activity._id)}>
+          Edit the Activity
+        </button>
       )}
       {activity.creator._id === user._id && (
         <button onClick={() => handleDeleteActivity(activity._id)}>
-          Delete
+          Delete the Activity
         </button>
       )}
-      <h3
-        style={{
-          marginTop: "30px",
-        }}
-      >
-        Comments
-      </h3>
-      {comments.map((comment) => {
-        console.log(comment.creator);
-        console.log(user._id);
-        const isMe = comment.creator._id === user._id;
-        return (
-          <div
-            key={comment._id}
-            style={{
-              marginTop: "30px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <p>{comment.content} </p>
-            <p>
-              Creator: {comment.creator.firstname} {comment.creator.lastname}
-            </p>
-            {isMe && (
-              <div onClick={() => handleDeleteComment(comment._id)}>🗑️</div>
-            )}
-          </div>
-        );
-      })}
-      <button className="CreateComment" onClick={handleCreateComment}>
-        Add a comment
-      </button>
     </div>
   );
 }
