@@ -9,6 +9,7 @@ function CreateComment() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  //Create Comment button
   async function handleCreateComment(event) {
     event.preventDefault();
     const content = contentInput.current.value;
@@ -22,7 +23,6 @@ function CreateComment() {
         creator,
       });
       navigate(`/activities/${id}`);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +47,14 @@ function CreateComment() {
         <div className="FormElement">
           <button onClick={handleCreateComment}>Comment</button>
         </div>
+        <button
+          id="BackButton"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Back
+        </button>
       </form>
     </div>
   );

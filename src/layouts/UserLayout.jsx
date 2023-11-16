@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import myApi from "../service/service.js";
 import { Outlet, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+
 function UserLayout() {
   const [allActivities, setAllActivities] = useState(null);
   const { user } = useAuth();

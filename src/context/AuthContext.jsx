@@ -12,6 +12,7 @@ function AuthContextWrapper({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  //Check if the user is connected by checking the token and let the user go inside
   async function authenticateUser() {
     const token = localStorage.getItem("authToken");
     if (!token) {

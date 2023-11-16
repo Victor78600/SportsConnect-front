@@ -7,18 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 function ProfilPage() {
   const [activities, setActivities] = useState(null);
-  // const [activity, setActivity] = useState("");
   const [users, setUsers] = useState(null);
   const { id } = useParams();
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  // const [follow, setFollow] = useState(user.follow.includes(id));
   const follow = user.follow.includes(id);
-  // console.log(user.follow);
-
-  // const title = user._id === id ? "edit profile" : "SportsConnect";
   const imEditor = user._id === id;
 
+  //Fetch One profile
   async function fetchProfil() {
     try {
       const response = await myApi.get(`/users/${id}`);
@@ -31,6 +27,7 @@ function ProfilPage() {
     fetchProfil();
   }, [id]);
 
+  //Fetch all activities (as participant or creator) of this profile
   async function fetchActivity() {
     try {
       const response = await myApi.get(`/activities/${id}/user`);
@@ -38,20 +35,12 @@ function ProfilPage() {
     } catch (error) {
       console.log(error);
     }
-    // setFollow((prevFollow) => !prevFollow);
   }
   useEffect(() => {
     fetchActivity();
   }, [id]);
 
-  // const handleCreateActivity = async () => {
-  //   try {
-  //     const res = await myApi.post("/activities/" + id, { activity });
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  //Manage button delete activities
   const handleDelete = async (id) => {
     try {
       const res = await myApi.delete("/activities/" + id);
@@ -62,6 +51,7 @@ function ProfilPage() {
     }
   };
 
+  // Manage Follow or Unfollow button
   const handleFollowButton = async (id) => {
     try {
       if (follow) {
@@ -74,21 +64,7 @@ function ProfilPage() {
     } catch (error) {
       console.log(error);
     }
-    console.log(1);
   };
-
-  // async function handleFollowButton(event) {
-  //   event.preventDefault();
-  //   try {
-  //     const res = await myApi.put(`/users/${id}/follow`);
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   fetchProfil();
-  // }, [id]);
 
   if (!users) {
     return <p>Loading...</p>;
@@ -98,23 +74,15 @@ function ProfilPage() {
     return <p>No activity</p>;
   }
 
+  //Manage Edit profile button
   const handleEditProfil = () => {
     navigate(`/${id}/edit`);
   };
 
+  //Manage Create activity button
   const handleCreateActivity = () => {
     navigate(`/new-activity`);
   };
-
-  // const handleFollowButton = async (id) => {
-  //   if (isFollow) {
-  //     user.follow = user.follow.filter((follow) => follow.id !== String(id));
-  //   } else {
-  //     myApi.put(`/users/${id}`, { follow: String(id) });
-  //   }
-  //   await updateUser(user);
-  //   setIsFollow(!isFollow);
-  // };
 
   return (
     <div className="profil">
@@ -141,17 +109,10 @@ function ProfilPage() {
         </div>
       )}
       {activities.map((activity) => {
-        console.log(user._id);
-        console.log(activity.creator._id);
         const isMe = activity.creator._id === user._id;
-        // const side = isMe ? "marginLeft" : "marginRight";
-        // console.log(activity.creator);
         return (
           <div className="DisplayActivites" key={activity._id}>
             <Link to={`/activities/${activity._id}`}>
-              {/* <div>
-              <Avatar size="s" url={activity.creator.picture} />
-            </div> */}
               <div key={activity._id}>
                 <div className="hearderActivity">
                   <div className="CreatorProfile">
@@ -195,15 +156,6 @@ function ProfilPage() {
           </div>
         );
       })}
-      {/* <textarea
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-        value={activity}
-        onChange={(e) => setActivity(e.target.value)}
-      ></textarea> */}
-      {/* <button onClick={handleCreateActivity}>Create activity</button> */}
     </div>
   );
 }

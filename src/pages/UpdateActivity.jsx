@@ -14,14 +14,8 @@ function UpdateActivityPage() {
   const [activity, setActivity] = useState(null);
   const [allUsers, setAllUsers] = useState(null);
   const navigate = useNavigate();
-  //   const [formData, setFormData] = useState({
-  //     sports: "",
-  //     duration: "",
-  //     description: "",
-  //     city: "",
-  //     participants: [],
-  //   });
 
+  //Fetch all user for the participants input
   const fetchAllUsers = async () => {
     try {
       const response = await myApi.get("/users");
@@ -35,11 +29,11 @@ function UpdateActivityPage() {
     fetchAllUsers();
   }, []);
 
+  //Take the activity infos to put it in the good input as default value
   async function fetchInputActivity() {
     try {
       const response = await myApi.get(`/activities/${id}`);
       setActivity(response.data);
-      //   console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -56,6 +50,7 @@ function UpdateActivityPage() {
     return <p>Loading...</p>;
   }
 
+  //Manage the button update activity
   async function handleUpdateActivity(event) {
     event.preventDefault();
     const sports = sportsInput.current.value;
@@ -65,7 +60,6 @@ function UpdateActivityPage() {
     const participants = Array.from(
       participantsInput.current.selectedOptions
     ).map((option) => option.value);
-    // const participants = participantsInput.current.value;
     try {
       const res = await myApi.put(`/activities/` + id, {
         sports,
@@ -75,7 +69,7 @@ function UpdateActivityPage() {
         participants,
       });
       navigate(`/${user._id}`);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -130,7 +124,7 @@ function UpdateActivityPage() {
           </select>
         </div>
         <div className="FormElement">
-          <label htmlFor="duration">Duration</label>
+          <label htmlFor="duration">Duration (2.5 = 2h30 minutes)</label>
           <br />
           <input
             className="InputCreate"
@@ -191,6 +185,14 @@ function UpdateActivityPage() {
         <div className="FormElement">
           <button onClick={handleUpdateActivity}>Update activity</button>
         </div>
+        <button
+          id="BackButton"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Back
+        </button>
       </form>
     </div>
   );

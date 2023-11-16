@@ -4,7 +4,6 @@ function Layout() {
   return (
     <>
       <Navbar />
-      {/* If you are logged in display a search bar to search users to talk with */}
       <main>
         <Outlet />
       </main>

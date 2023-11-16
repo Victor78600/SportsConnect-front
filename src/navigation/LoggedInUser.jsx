@@ -1,5 +1,6 @@
 import { useAuth } from "./../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
+
 function LoggedInUser() {
   const { isLoggedIn, isLoading } = useAuth();
 

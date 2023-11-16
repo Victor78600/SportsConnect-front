@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-// import axios from "axios"
 import myApi from "../service/service";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +11,7 @@ function SignupPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  //Manage button create user with picture
   async function handleSubmit(event) {
     event.preventDefault();
     const firstname = firstnameInput.current.value;
@@ -29,7 +29,7 @@ function SignupPage() {
 
     try {
       const response = await myApi.signup(fd);
-      console.log("success", response);
+      // console.log("success", response);
       navigate("/login");
     } catch (error) {
       console.log(error.response);

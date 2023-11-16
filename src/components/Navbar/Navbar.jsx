@@ -8,18 +8,21 @@ function Navbar() {
   const { isLoggedIn, authenticateUser, user } = useAuth();
   const navigate = useNavigate();
 
+  //Button Logout
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     authenticateUser();
   };
 
+  //Change the title if the user is connected or not
   const title = user ? `Hello ${user.firstname}` : "SportsConnect";
-  // console.log(user);
 
+  //Button My Profile
   const handleProfileButton = () => {
     navigate(`/${user._id}`);
   };
 
+  //Button Home
   const handleHomeButton = () => {
     navigate("/");
   };

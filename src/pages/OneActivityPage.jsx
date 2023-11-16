@@ -5,7 +5,6 @@ import myApi from "./../service/service.js";
 import { useNavigate } from "react-router-dom";
 import "./OneActivityPage.css";
 import Avatar from "../components/Avatar/Avatar.jsx";
-// import Avatar from "../components/Avatar/Avatar.jsx"
 
 function ActivityPage() {
   const [activity, setActivity] = useState(null);
@@ -14,6 +13,7 @@ function ActivityPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  //Fetch one activity
   async function fetchActivity() {
     try {
       const response = await myApi.get(`/activities/${id}`);
@@ -27,6 +27,7 @@ function ActivityPage() {
     fetchActivity();
   }, [id]);
 
+  // Fetch all comments
   async function fetchComments() {
     try {
       const response = await myApi.get(`/activities/${id}/comments`);
@@ -48,17 +49,18 @@ function ActivityPage() {
     return <p>No comments</p>;
   }
 
+  //button delete comment
   const handleDeleteComment = async (id) => {
     try {
       const res = await myApi.delete("/comments/" + id);
+      // Update comments of the activity
       await fetchComments();
-
-      // setComments(res.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Delete button of one activity
   const handleDeleteActivity = async (id) => {
     try {
       const res = await myApi.delete("/activities/" + id);
@@ -69,10 +71,12 @@ function ActivityPage() {
     }
   };
 
+  //Manage button create comment
   const handleCreateComment = () => {
     navigate(`comment`);
   };
 
+  // Manage button create activity
   const handleEditActivity = () => {
     navigate(`edit`);
   };
@@ -82,8 +86,13 @@ function ActivityPage() {
       <div>
         <div className="Creator">
           <p className="CreatorName">
-            Activity created by {activity.creator.firstname}{" "}
-            {activity.creator.lastname}{" "}
+            Activity created by{" "}
+            <span
+              className="UserPath"
+              onClick={() => navigate(`/${activity.creator._id}`)}
+            >
+              {activity.creator.firstname} {activity.creator.lastname}
+            </span>
           </p>
           <div className="OneActivityAvatar">
             <Avatar size="s" url={activity.creator.picture} />
@@ -102,7 +111,8 @@ function ActivityPage() {
           {activity.participants.map((participant) => {
             return (
               <div
-                className="EachParticipantsOneActivity"
+                className="EachParticipantsOneActivity UserPath"
+                onClick={() => navigate(`/${participant._id}`)}
                 key={participant._id}
               >
                 <Avatar size="xs" url={participant.picture} />
@@ -123,13 +133,14 @@ function ActivityPage() {
           Comments
         </h3>
         {comments.map((comment) => {
-          console.log(comment.creator);
-          console.log(user._id);
           const isMe = comment.creator._id === user._id;
           return (
             <div className="DisplayComment" key={comment._id}>
               <div>
-                <div className="EachParticipantsOneActivity">
+                <div
+                  className="EachParticipantsOneActivity UserPath"
+                  onClick={() => navigate(`/${comment.creator._id}`)}
+                >
                   <Avatar size="xs" url={comment.creator.picture} />
                   <p id="NameParticipants">
                     {comment.creator.firstname} {comment.creator.lastname}
@@ -163,6 +174,14 @@ function ActivityPage() {
           Delete the Activity
         </button>
       )}
+      <button
+        id="BackButton"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }

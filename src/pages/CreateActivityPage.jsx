@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CreateAndUpdatePage.css";
 
 function CreateActivityPage() {
@@ -13,14 +13,8 @@ function CreateActivityPage() {
   const { user } = useAuth();
   const [allUsers, setAllUsers] = useState(null);
   const navigate = useNavigate();
-  //   const [formData, setFormData] = useState({
-  //     sports: "",
-  //     duration: "",
-  //     description: "",
-  //     city: "",
-  //     participants: [],
-  //   });
 
+  //Affiche tous les utilisateurs
   const fetchAllUsers = async () => {
     try {
       const response = await myApi.get("/users");
@@ -38,6 +32,7 @@ function CreateActivityPage() {
     return <p>Loading...</p>;
   }
 
+  //Create activity button
   async function handleCreateActivity(event) {
     event.preventDefault();
     const sports = sportsInput.current.value;
@@ -59,11 +54,10 @@ function CreateActivityPage() {
         creator,
       });
       navigate(`/${user._id}`);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
-    console.log(user._id);
   }
   return (
     <div className="FormPages">
@@ -113,7 +107,7 @@ function CreateActivityPage() {
           </select>
         </div>
         <div className="FormElement">
-          <label htmlFor="duration">Duration</label>
+          <label htmlFor="duration">Duration (2.5 = 2h30 minutes)</label>
           <br />
           <input
             type="number"
@@ -159,6 +153,7 @@ function CreateActivityPage() {
             name="participants"
             multiple
           >
+            {/* Fetch all users */}
             {allUsers.map((user) => (
               <option key={user._id} value={user._id}>
                 {user.firstname} {user.lastname}
@@ -170,6 +165,14 @@ function CreateActivityPage() {
           <button onClick={handleCreateActivity}>Create activity</button>
         </div>
       </form>
+      <button
+        id="BackButton"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }

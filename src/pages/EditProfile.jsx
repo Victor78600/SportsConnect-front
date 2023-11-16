@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import myApi from "./../service/service.js";
 import { useAuth } from "./../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ function UpdateProfile() {
   }
   const isMe = id === user._id;
 
+  //Update user button with picture
   async function handleUpdateProfile(event) {
     event.preventDefault();
     const firstname = firstnameInput.current.value;
@@ -35,18 +36,8 @@ function UpdateProfile() {
     fd.append("city", city);
 
     try {
-      const res = await myApi.put(
-        `/users`,
-        fd
-        // firstname,
-        // lastname,
-        // // if(picture) {
-        // picture,
-        // // },
-        // age,
-        // city,
-      );
-      //   console.log(res.data);
+      const res = await myApi.put(`/users`, fd);
+
       setUser(res.data);
       Navigate(`/${user._id}`);
     } catch (error) {
@@ -54,12 +45,13 @@ function UpdateProfile() {
     }
   }
 
+  //delete user button
   const handleDelete = async () => {
     try {
       const res = await myApi.delete("/users/");
-      localStorage.removeItem("authToken");
       setUser(null);
-      Navigate(`/`);
+      localStorage.removeItem("authToken");
+      Navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -133,6 +125,14 @@ function UpdateProfile() {
               </button>
             </div>
           </form>
+          <button
+            id="BackButton"
+            onClick={() => {
+              Navigate(-1);
+            }}
+          >
+            Back
+          </button>
         </div>
       )}
       {!isMe && <h3>Wrong Page</h3>}

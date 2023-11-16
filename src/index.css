@@ -9,6 +9,20 @@ body {
   margin: 0;
   font-family: cursive, sans-serif;
   background-color: var(--beige);
+  margin-bottom: 30px;
+}
+
+.UserPath {
+  cursor: pointer;
+}
+
+#BackButton {
+  background-color: var(--blue);
+  min-width: 200px;
+}
+
+#BackButton:hover {
+  background-color: grey;
 }
 
 .HomeLogin {
@@ -44,18 +58,9 @@ select {
   margin-top: 10px;
 }
 
-button {
-  background-color: var(--blue);
-}
-
 a {
   text-decoration: inherit;
 }
-
-/* .profil {
-  text-align: center;
-  margin-top: 20px;
-} */
 
 h1 {
   font-size: 3.2em;
@@ -78,7 +83,7 @@ button:hover {
   border-color: var(--blue);
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -89,4 +94,4 @@ button:hover {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

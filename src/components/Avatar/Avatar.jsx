@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuth } from "../../context/AuthContext";
+// import { useAuth } from "../../context/AuthContext";
 function Avatar({ size, url }) {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const table = {
     xs: "1.7rem",
     s: "3rem",
