@@ -4,6 +4,35 @@
 
 Welcome to theSportsConnect application! This web application is built using React.js, Node.js, MongoDB, Express.js, HTML, and CSS. It serves as a social platform for sports enthusiasts, allowing users to connect based on their shared activities. With features like creating, reading, updating, and deleting activities or users, as well as the ability to create comments, this application aims to enhance the sports community experience.
 
+## Token-Based Authentication
+
+The SportsConnect application implements token-based authentication using JSON Web Tokens (JWT) on the server for enhanced security.
+
+### How it Works
+
+1. User Login:
+
+Users can log in to the website by providing their credentials.
+The server verifies the provided credentials, and upon successful authentication, generates a JWT containing user information.
+
+2. Token Generation:
+
+The server uses the jsonwebtoken library to create a JWT with a secret key and includes user information in the payload.
+
+3. Token Storage:
+
+The generated JWT is typically stored on the client side, such as in a browser's localStorage or sessionStorage.
+
+4. Protected Routes:
+
+Certain routes on the server are protected, requiring a valid JWT to access them.
+The server verifies the JWT on protected routes, ensuring the user is authenticated.
+
+5. Token Expiration:
+
+The JWT includes an expiration time to enhance security.
+Users need to re-authenticate and obtain a new token after the previous one expires.
+
 ## Features
 
 ### User Management
