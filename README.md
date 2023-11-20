@@ -69,4 +69,4 @@ Add Comments: Users can leave comments on activities, fostering engagement and i
 
 Free server can take time before starting (1 or 2 minutes)
 
-# To review the backend implementation, please [click here](https://sportsconnect.netlify.app/)
+# To review the backend implementation, please [click here](https://github.com/Victor78600/SportsConnect-back)
