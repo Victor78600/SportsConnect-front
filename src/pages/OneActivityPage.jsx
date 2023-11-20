@@ -42,11 +42,11 @@ function ActivityPage() {
   }, [id]);
 
   if (!activity) {
-    return <p>No activity</p>;
+    return <p>Loading...</p>;
   }
 
   if (!comments) {
-    return <p>No comments</p>;
+    return <p>Loading...</p>;
   }
 
   //button delete comment
