@@ -65,7 +65,7 @@ Add Comments: Users can leave comments on activities, fostering engagement and i
 - Database: MongoDB for storing user profiles, activities, and comments.
 - Styling: HTML and CSS for a visually appealing and user-friendly design.
 
-## [Click here to acced the website](https://sportsconnect.netlify.app/)
+## [Click here to access the website](https://sportsconnect.netlify.app/)
 
 Free server can take time before starting (1 or 2 minutes)
 
