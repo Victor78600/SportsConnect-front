@@ -8,22 +8,22 @@ Welcome to theSportsConnect application! This web application is built using Rea
 
 ### User Management
 
-Create: Users can register and create their profiles, providing essential information.
-Read: View user profiles to discover their activities and comments.
-Update: Users can modify their profiles and update information.
+- Create: Users can register and create their profiles, providing essential information.
+- Read: View user profiles to discover their activities and comments.
+- Update: Users can modify their profiles and update information.
 
 ### Activity Management
 
-Create: Users can create new activities, specifying details such as sport, duration, city, and description.
-Read: Explore a variety of activities created by users on the platform.
-Update: Activity creators can edit their activity details.
-Delete: Remove activities that are no longer relevant.
+- Create: Users can create new activities, specifying details such as sport, duration, city, and description.
+- Read: Explore a variety of activities created by users on the platform.
+- Update: Activity creators can edit their activity details.
+- Delete: Remove activities that are no longer relevant.
 
 ### Social Interaction
 
-Follow Users: Users can follow other sports enthusiasts to stay updated on their activities.
-Participate: Join activities created by other users.
-Homepage Wall: The homepage features a scrolling wall showcasing activities and updates from followed users.
+1. Follow Users: Users can follow other sports enthusiasts to stay updated on their activities.
+2. Participate: Join activities created by other users.
+3. Homepage Wall: The homepage features a scrolling wall showcasing activities and updates from followed users.
 
 ### Comments
 
@@ -31,10 +31,10 @@ Add Comments: Users can leave comments on activities, fostering engagement and i
 
 ## Technologies Used
 
-Frontend: React.js for building a responsive and dynamic user interface.
-Backend: Node.js and Express.js to handle server-side logic and API endpoints.
-Database: MongoDB for storing user profiles, activities, and comments.
-Styling: HTML and CSS for a visually appealing and user-friendly design.
+- Frontend: React.js for building a responsive and dynamic user interface.
+- Backend: Node.js and Express.js to handle server-side logic and API endpoints.
+- Database: MongoDB for storing user profiles, activities, and comments.
+- Styling: HTML and CSS for a visually appealing and user-friendly design.
 
 ## [Click here to acced the website](https://sportsconnect.netlify.app/)
 
