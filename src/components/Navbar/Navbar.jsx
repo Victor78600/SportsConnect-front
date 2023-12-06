@@ -32,7 +32,11 @@ function Navbar() {
       <nav>
         <ul>
           <li>
-            <button className="NavButton" onClick={handleHomeButton}>
+            <button
+              id="homeButton"
+              className="NavButton"
+              onClick={handleHomeButton}
+            >
               Home
             </button>
           </li>

@@ -17,10 +17,14 @@
 .NavButton {
   background-color: var(--black); /* Change the background color as needed */
   color: white; /* Change the text color as needed */
-  padding: 14px 20px;
+  /* padding: 14px 20px; */
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+}
+
+#homeButton {
+  margin-top: 6px;
 }
 
 .MyProfile {
@@ -31,7 +35,7 @@
 nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 nav ul li {
@@ -64,4 +68,10 @@ p {
 
 button:hover {
   background-color: #777; /* Change the button hover background color as needed */
+}
+
+@media screen and (max-width: 800px) {
+  #homeButton {
+    margin-left: -50px;
+  }
 }
