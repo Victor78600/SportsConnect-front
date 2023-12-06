@@ -89,8 +89,8 @@ function ProfilPage() {
       <div>
         <Avatar size="l" url={users.picture} />
       </div>
-      <p>Prénom : {users.firstname}</p>
-      <p>Nom : {users.lastname}</p>
+      <p>Firstname : {users.firstname}</p>
+      <p>Lastname : {users.lastname}</p>
       {imEditor && (
         <button className="EditProfile" onClick={handleEditProfil}>
           Edit profile
