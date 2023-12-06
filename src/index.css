@@ -83,8 +83,12 @@ button:hover {
   border-color: var(--blue);
 }
 
-@media screen and (max-width: 600px){
-  .title{
+.DisplayActivites {
+  min-width: 350px;
+}
+
+@media screen and (max-width: 900px) {
+  .title {
     display: none;
   }
 }

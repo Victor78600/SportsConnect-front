@@ -82,7 +82,7 @@ function ActivityPage() {
   };
 
   return (
-    <div className="OneActivityDisplay">
+    <div id="activityDetail" className="OneActivityDisplay">
       <div>
         <div className="Creator">
           <p className="CreatorName">
